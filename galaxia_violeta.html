@@ -1,0 +1,142 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Galaxia de Rosas — VIOLETA 🌹✨</title>
+<style>
+  :root{
+    --bg1:#06031a;
+    --bg2:#0f0830;
+    --accent:#ff7aa2;
+    --glass: rgba(255,255,255,0.06);
+  }
+  html,body{height:100%; margin:0; font-family:system-ui,-apple-system,Segoe UI,Roboto,"Helvetica Neue",Arial; background: radial-gradient(1200px 700px at 10% 10%, #1a0b2a 0%, var(--bg1) 25%, var(--bg2) 100%); color:#fff;}
+  .wrap{min-height:100vh; display:flex; align-items:center; justify-content:center; padding:28px;}
+  .card{width:100%; max-width:940px; background:linear-gradient(180deg, rgba(255,255,255,0.02), transparent); border-radius:18px; padding:28px; box-shadow:0 10px 40px rgba(0,0,0,0.6); position:relative; overflow:hidden; border:1px solid var(--glass);}
+  h1{margin:0; font-size:clamp(22px,4vw,40px); letter-spacing:0.02em;}
+  p.lead{margin:8px 0 20px; opacity:0.9;}
+  .galaxy{position:relative; width:100%; height:62vmin; max-height:520px; border-radius:8px; overflow:hidden; background:radial-gradient(circle at 40% 30%, rgba(255,120,160,0.06), rgba(0,0,0,0) 30%), linear-gradient(180deg, rgba(0,0,0,0.04), transparent);}
+  .centerGlow{position:absolute; left:50%; top:50%; transform:translate(-50%,-50%); width:12vmin; height:12vmin; border-radius:50%; background: radial-gradient(circle at 30% 30%, rgba(255,120,160,0.95), rgba(255,60,120,0.16) 40%, transparent 60%); filter:blur(14px); mix-blend-mode:screen; pointer-events:none;}
+  .orbit{position:absolute; inset:0; border-radius:50%;}
+  .rose{position:absolute; left:50%; top:50%; transform-origin:center; font-size:clamp(18px,3.6vmin,48px); text-shadow:0 3px 8px rgba(0,0,0,0.7); user-select:none;}
+  @keyframes spin { from{transform: rotate(0deg) translateX(var(--r)) rotate(0deg);} to{transform: rotate(360deg) translateX(var(--r)) rotate(-360deg);} }
+  /* create multiple orbit layers */
+  .orbit[data-layer="1"] .rose{--r:8vmin; animation: spin 22s linear infinite;}
+  .orbit[data-layer="2"] .rose{--r:15vmin; animation: spin 36s linear infinite;}
+  .orbit[data-layer="3"] .rose{--r:22vmin; animation: spin 50s linear infinite;}
+  .orbit[data-layer="4"] .rose{--r:30vmin; animation: spin 30s reverse linear infinite;}
+  .orbit[data-layer="5"] .rose{--r:38vmin; animation: spin 46s linear infinite;}
+  .rose.small{font-size:0.8em; opacity:0.9;}
+  .rose.faint{opacity:0.65; transform:scale(0.9);}
+  /* subtle twinkle background stars */
+  .star{position:absolute; width:4px; height:4px; background:linear-gradient(180deg,#fff3,#fff); border-radius:50%; opacity:0.9; filter:blur(0.8px);}
+  .controls{display:flex; gap:12px; margin-top:18px; flex-wrap:wrap;}
+  .btn{display:inline-block; padding:10px 14px; border-radius:10px; text-decoration:none; font-weight:600; background:linear-gradient(90deg, rgba(255,255,255,0.03), rgba(255,255,255,0.01)); border:1px solid rgba(255,255,255,0.06); color:#fff;}
+  .btn.wh{background:linear-gradient(90deg,#25d366,#128c7e); border:none;}
+  .meta{position:absolute; right:18px; bottom:12px; font-size:12px; opacity:0.7;}
+  footer.note{margin-top:14px; font-size:13px; opacity:0.85;}
+  @media (max-width:640px){ .galaxy{height:70vmin;} }
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="card" role="main" aria-label="Galaxia de Rosas para Violeta">
+      <h1>Una galaxia de rosas para <span style="color:var(--accent);">VIOLETA</span> 🌹✨</h1>
+      <p class="lead">Violeta — un pequeño regalo cósmico hecho con muchísimo cariño. Toca "Enviar por WhatsApp" para compartirlo.</p>
+
+      <div class="galaxy" id="galaxy" aria-hidden="false">
+        <div class="centerGlow" aria-hidden="true"></div>
+
+        <!-- background stars -->
+        <div id="stars"></div>
+
+        <!-- orbits -->
+        <div class="orbit" data-layer="1"></div>
+        <div class="orbit" data-layer="2"></div>
+        <div class="orbit" data-layer="3"></div>
+        <div class="orbit" data-layer="4"></div>
+        <div class="orbit" data-layer="5"></div>
+      </div>
+
+      <div class="controls">
+        <a class="btn wh" id="shareBtn" href="#" target="_blank" rel="noopener">Enviar por WhatsApp</a>
+        <a class="btn" id="copyBtn" href="#">Copiar enlace</a>
+        <a class="btn" id="downloadBtn" href="#" download="galaxia_violeta.html">Descargar página</a>
+      </div>
+
+      <footer class="note">Si la otra persona no recibe el diseño al pegar el enlace en WhatsApp, comparte el archivo HTML descargado o súbelo a GitHub Pages/Netlify y usa la URL pública.</footer>
+
+      <div class="meta">Creado especialmente para VIOLETA</div>
+    </div>
+  </div>
+
+<script>
+(function(){
+  const galaxy = document.getElementById('galaxy');
+
+  // Create stars
+  const stars = document.getElementById('stars');
+  for(let i=0;i<60;i++){
+    const s = document.createElement('div');
+    s.className = 'star';
+    s.style.left = Math.random()*100 + '%';
+    s.style.top = Math.random()*100 + '%';
+    const size = 1 + Math.random()*3;
+    s.style.width = size+'px'; s.style.height = size+'px';
+    s.style.opacity = 0.4 + Math.random()*0.8;
+    stars.appendChild(s);
+  }
+
+  // Populate orbits with roses
+  const layers = galaxy.querySelectorAll('.orbit');
+  const emojis = ['🌹','🌸','✨'];
+  layers.forEach((layer, li) => {
+    const count = 7 + li*3;
+    for(let i=0;i<count;i++){
+      const r = document.createElement('div');
+      r.className = 'rose';
+      if(Math.random()<0.2) r.classList.add('small');
+      if(Math.random()<0.12) r.classList.add('faint');
+      // angle
+      const angle = (360/count)*i + (Math.random()*12 - 6);
+      r.style.transform = `rotate(${angle}deg) translateX(var(--r)) rotate(${ -angle }deg)`;
+      // animation speed stagger
+      const base = parseFloat(getComputedStyle(layer).getPropertyValue('--r')) || 1;
+      // choose emoji
+      r.textContent = emojis[Math.random()*emojis.length|0];
+      layer.appendChild(r);
+    }
+  });
+
+  // Share by WhatsApp (opens composer with custom message)
+  document.getElementById('shareBtn').addEventListener('click', function(e){
+    e.preventDefault();
+    const msg = `Para ti, VIOLETA 💜%0A%0ATe mando una galaxia entera de rosas 🌹✨%0A%0AEres mi estrella favorita ⭐💖`;
+    const url = location.href;
+    // If page is local (file://), don't include URL to avoid confusion — just send message
+    const text = location.protocol.startsWith('file') ? msg : encodeURIComponent(decodeURIComponent(msg + '%0A%0A' + url));
+    const wa = `https://api.whatsapp.com/send?text=${text}`;
+    window.open(wa, '_blank');
+  });
+
+  // Copy current page URL (or data about sending)
+  document.getElementById('copyBtn').addEventListener('click', function(e){
+    e.preventDefault();
+    const url = location.href;
+    if(navigator.clipboard){
+      navigator.clipboard.writeText(url).then(()=> alert('Enlace copiado al portapapeles. ¡Pégalo en WhatsApp!'));
+    } else {
+      prompt('Copia este enlace:', url);
+    }
+  });
+
+  // Provide download via creating blob
+  document.getElementById('downloadBtn').addEventListener('click', function(e){
+    // default href already triggers download; this is just a safety
+  });
+
+})();
+</script>
+</body>
+</html>
